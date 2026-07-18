@@ -36,7 +36,7 @@ pip install -r requirements.txt
 
 ## Uso
 
-1. Arranca el backend:
+1. Inicializa el backend:
 ```bash
 cd backend
 source venv/bin/activate
