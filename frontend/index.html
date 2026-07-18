@@ -8,27 +8,29 @@
 </head>
 <body>
   <div class="container">
-    <h1>Downloader</h1>
-
-    <input type="text" id="url" placeholder="Pega aquí el enlace...">
-
-    <div class="options">
-      <select id="format">
-        <option value="mp4">MP4 (vídeo)</option>
-        <option value="mp3">MP3 (audio)</option>
-      </select>
+    <div class="left">
+      <h1>Downloader</h1>
+      <input type="text" id="url" placeholder="Pega aquí el enlace...">
+      <div class="options">
+        <select id="format">
+          <option value="mp4">MP4 (vídeo)</option>
+          <option value="mp3">MP3 (audio)</option>
+        </select>
+      </div>
+      <button id="btn">Descargar</button>
+      <p id="status"></p>
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+      </div>
     </div>
 
-    <button id="btn">Descargar</button>
-    <p id="status"></p>
-    <div id="progress-container">
-      <div id="progress-bar"></div>
+    <div class="right">
+      <p>Downloader</p>
+      <p>Herramienta para descargar vídeos y audio de YouTube, TikTok e Instagram sin publicidad.</p>
+      <p>Hecho por <a href="https://github.com/rafamonjr" target="_blank">Rafa</a></p>
     </div>
   </div>
 
   <script src="script.js"></script>
-  <footer>
-    Hecho por <a href="https://github.com/rafamonjr" target="_blank">Rafa</a>
-  </footer>
 </body>
 </html>
