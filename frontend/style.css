@@ -98,3 +98,19 @@ button:disabled {
   width: 0%;
   transition: width 0.3s ease;
 }
+
+footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #555;
+  margin-top: 1rem;
+}
+
+footer a {
+  color: #888;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fff;
+}
