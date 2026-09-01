@@ -28,7 +28,7 @@ def get_ydl_opts(url: str, format: str, tmp_dir: str) -> dict:
     }
 
     if is_youtube:
-        base["extractor_args"] = {"youtube": {"player_client": ["android_vr"]}}
+        base["extractor_args"] = {"youtube": {"player_client": ["android"]}}
 
     if format == "mp3":
         base["format"] = "bestaudio/best"
