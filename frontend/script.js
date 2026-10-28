@@ -19,6 +19,15 @@ btn.addEventListener('click', async () => {
   progressBar.style.width = '0%'
   status.textContent = 'Descargando...'
 
+  // Animación mientras espera
+  let progress = 0
+  const interval = setInterval(() => {
+    if (progress < 90) {
+      progress += Math.random() * 3
+      progressBar.style.width = `${Math.min(progress, 90)}%`
+    }
+  }, 300)
+
   try {
     const response = await fetch('http://127.0.0.1:8000/download', {
       method: 'POST',
@@ -26,44 +35,18 @@ btn.addEventListener('click', async () => {
       body: JSON.stringify({ url, format })
     })
 
+    clearInterval(interval)
+
     if (!response.ok) {
       const data = await response.json()
       throw new Error(data.detail || 'Error en el servidor')
     }
 
-    const contentLength = response.headers.get('Content-Length')
-    const total = parseInt(contentLength, 10)
-    let received = 0
-
-    const reader = response.body.getReader()
-    const chunks = []
-
-    while (true) {
-      const { done, value } = await reader.read()
-      if (done) break
-
-      chunks.push(value)
-      received += value.length
-
-      if (total) {
-        const percent = Math.round((received / total) * 100)
-        progressBar.style.width = `${percent}%`
-        status.textContent = `Descargando... ${percent}%`
-      }
-    }
-
-    const blob = new Blob(chunks)
-    const downloadUrl = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = downloadUrl
-    a.download = `descarga.${format}`
-    a.click()
-    URL.revokeObjectURL(downloadUrl)
-
     progressBar.style.width = '100%'
-    status.textContent = '¡Listo!'
+    status.textContent = '✓ Descargado en tu carpeta de Descargas'
 
   } catch (err) {
+    clearInterval(interval)
     status.textContent = err.message || 'Algo salió mal. Revisa el enlace.'
     progressContainer.style.display = 'none'
   } finally {
