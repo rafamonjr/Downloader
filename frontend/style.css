@@ -146,3 +146,19 @@ footer a {
 footer a:hover {
   color: #fff;
 }
+
+#folder-btn {
+  background: #2a2a2a;
+  color: #888;
+  border: 1px solid #333;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+#folder-btn:hover {
+  border-color: #555;
+  color: #aaa;
+}

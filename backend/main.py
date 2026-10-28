@@ -16,6 +16,7 @@ app.add_middleware(
 class DownloadRequest(BaseModel):
     url: str
     format: str
+    output_dir: str = None
 
 DOWNLOADS_DIR = os.path.expanduser("~/Downloads")
 
@@ -43,9 +44,10 @@ def get_ydl_opts(url: str, format: str, output_dir: str) -> dict:
 
 @app.post("/download")
 def download(request: DownloadRequest):
-    try:
-        ydl_opts = get_ydl_opts(request.url, request.format, DOWNLOADS_DIR)
+    output = request.output_dir if request.output_dir else DOWNLOADS_DIR
+    ydl_opts = get_ydl_opts(request.url, request.format, output)
 
+    try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([request.url])
 

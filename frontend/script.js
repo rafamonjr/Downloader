@@ -5,6 +5,20 @@ const status = document.getElementById('status')
 const progressContainer = document.getElementById('progress-container')
 const progressBar = document.getElementById('progress-bar')
 
+let selectedFolder = null
+
+document.getElementById('folder-btn').addEventListener('click', async () => {
+  const folder = await window.__TAURI__.dialog.open({
+    directory: true,
+    multiple: false,
+    title: 'Selecciona carpeta de destino'
+  })
+  if (folder) {
+    selectedFolder = folder
+    document.getElementById('folder-label').textContent = folder.split('/').pop()
+  }
+})
+
 btn.addEventListener('click', async () => {
   const url = urlInput.value.trim()
   const format = formatSelect.value
@@ -19,7 +33,6 @@ btn.addEventListener('click', async () => {
   progressBar.style.width = '0%'
   status.textContent = 'Descargando...'
 
-  // Animación mientras espera
   let progress = 0
   const interval = setInterval(() => {
     if (progress < 90) {
@@ -32,7 +45,7 @@ btn.addEventListener('click', async () => {
     const response = await fetch('http://127.0.0.1:8000/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url, format })
+      body: JSON.stringify({ url, format, output_dir: selectedFolder })
     })
 
     clearInterval(interval)
@@ -43,7 +56,7 @@ btn.addEventListener('click', async () => {
     }
 
     progressBar.style.width = '100%'
-    status.textContent = '✓ Descargado en tu carpeta de Descargas'
+    status.textContent = '✓ Descargado en ' + (selectedFolder ? selectedFolder.split('/').pop() : 'Descargas')
 
   } catch (err) {
     clearInterval(interval)

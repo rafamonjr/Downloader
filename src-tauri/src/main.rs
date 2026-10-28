@@ -3,7 +3,6 @@
 use std::process::Command;
 
 fn main() {
-    // Mata cualquier uvicorn que esté corriendo
     let _ = Command::new("pkill").args(["-f", "uvicorn"]).output();
     std::thread::sleep(std::time::Duration::from_millis(500));
 
@@ -21,6 +20,7 @@ fn main() {
         .expect("No se pudo lanzar el backend");
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .on_window_event(|_window, event| {
             if let tauri::WindowEvent::Destroyed = event {
                 let _ = Command::new("pkill").args(["-f", "uvicorn"]).output();
