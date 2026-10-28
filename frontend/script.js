@@ -60,7 +60,11 @@ btn.addEventListener('click', async () => {
 
   } catch (err) {
     clearInterval(interval)
-    status.textContent = err.message || 'Algo salió mal. Revisa el enlace.'
+    if (err && err.message) {
+      status.textContent = err.message
+    } else {
+      status.textContent = 'Algo salió mal. Revisa el enlace.'
+    }
     progressContainer.style.display = 'none'
   } finally {
     btn.disabled = false

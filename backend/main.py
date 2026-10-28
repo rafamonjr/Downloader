@@ -16,7 +16,7 @@ app.add_middleware(
 class DownloadRequest(BaseModel):
     url: str
     format: str
-    output_dir: str = None
+    output_dir: str | None = None
 
 DOWNLOADS_DIR = os.path.expanduser("~/Downloads")
 
