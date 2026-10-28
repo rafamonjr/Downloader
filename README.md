@@ -1,11 +1,20 @@
 # Downloader
 
-Web app para descargar vídeos y audio de YouTube, TikTok e Instagram en MP4 y MP3, sin publicidad ni marcas de agua.
+App de escritorio para descargar vídeos y audio de YouTube, TikTok e Instagram en MP4 y MP3, sin publicidad ni marcas de agua.
 
 ## Stack
 
-- **Backend:** Python, FastAPI, yt-dlp, ffmpeg
-- **Frontend:** HTML, CSS, JavaScript vanilla
+- **Backend:** Python · FastAPI · yt-dlp · ffmpeg
+- **Desktop:** Rust · Tauri
+- **Frontend:** HTML · CSS · JavaScript vanilla
+
+## Funcionalidades
+
+- Descarga de YouTube, TikTok e Instagram
+- Exporta en MP4 o MP3
+- Selector de carpeta de destino
+- Barra de progreso animada
+- El backend arranca y se apaga automáticamente con la app
 
 ## Requisitos
 
@@ -22,8 +31,8 @@ brew install ffmpeg yt-dlp
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/tuusuario/downloader.git
-cd downloader
+git clone https://github.com/rafamonjr/Downloader.git
+cd Downloader
 ```
 
 2. Crea el entorno virtual e instala dependencias:
@@ -34,32 +43,35 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Uso
-
-1. Inicializa el backend:
+3. Instala las dependencias de Tauri:
 ```bash
-cd backend
-source venv/bin/activate
-uvicorn main:app --reload
+brew install rust
+cargo install tauri-cli
 ```
 
-2. Abre `frontend/index.html` en el navegador.
+4. Compila la app:
+```bash
+cargo tauri build
+```
 
-3. Pega un enlace de YouTube, TikTok o Instagram, elige el formato y descarga.
+El `.dmg` estará en `src-tauri/target/release/bundle/macos/`.
 
 ## Estructura
 
-```
-downloader/
+Downloader/
 ├── backend/
-│   ├── main.py
-│   └── requirements.txt
-└── frontend/
-    ├── index.html
-    ├── style.css
-    └── script.js
-```
+│ ├── main.py
+│ └── requirements.txt
+├── frontend/
+│ ├── index.html
+│ ├── style.css
+│ └── script.js
+└── src-tauri/
+├── src/main.rs
+└── tauri.conf.json
+
+
 
 ## Autor
 
-Rafael Montañés — [github.com/rafamonjr](https://github.com/rafamonjr)
+Rafa — [github.com/rafamonjr](https://github.com/rafamonjr)
