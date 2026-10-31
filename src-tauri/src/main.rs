@@ -15,18 +15,15 @@ fn main() {
         std::path::PathBuf::from("/Users/rafa/Docs/Projects/Downloader/backend")
     };
 
-    let venv_python = std::path::PathBuf::from("/opt/homebrew/opt/python@3.11/bin/python3.11");
-
-    let result = Command::new("/opt/homebrew/opt/python@3.11/bin/python3.11")
-    .args(["-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8000"])
-    .current_dir(&backend_path)
-    .env("VIRTUAL_ENV", backend_path.join("venv"))
-    .env("PATH", format!(
-        "{}:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin",
-        backend_path.join("venv/bin").display()
-    ))
-    .env("PYTHONPATH", backend_path.join("venv/lib/python3.11/site-packages"))
-    .spawn();
+    let result = Command::new(backend_path.join("venv/bin/uvicorn"))
+        .args(["main:app", "--host", "127.0.0.1", "--port", "8000"])
+        .current_dir(&backend_path)
+        .env("PATH", format!(
+            "{}:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin",
+            backend_path.join("venv/bin").display()
+        ))
+        .env("VIRTUAL_ENV", backend_path.join("venv"))
+        .spawn();
 
     if let Err(e) = result {
         eprintln!("No se pudo lanzar el backend: {}", e);
